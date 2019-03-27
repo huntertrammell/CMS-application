@@ -12,8 +12,6 @@
 
     if(!$connection){
         echo mysqli_error($connection);
-    } else {
-        echo 'all good in the hood';
     }
 
 ?>
