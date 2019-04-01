@@ -14,12 +14,16 @@
                     <small>Secondary Text</small>
                 </h1>
                 <?php
-                    include "includes/db.php";
-                    $query = "SELECT * FROM posts";
-                    global $connection;
-                    $select_all_posts = mysqli_query($connection, $query);
 
-                        while($row = mysqli_fetch_assoc($select_all_posts)){
+                    if(isset($_GET['category'])){
+                        $post_category_id = $_GET['category'];
+                    }
+                    include "includes/db.php";
+                    $query = "SELECT * FROM posts WHERE post_category_id = $post_category_id ";
+                    global $connection;
+                    $select_category_posts = mysqli_query($connection, $query);
+
+                        while($row = mysqli_fetch_assoc($select_category_posts)){
                             $post_id = $row['post_id'];
                             $post_title = $row['post_title'];
                             $post_author = $row['post_author'];

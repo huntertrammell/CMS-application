@@ -1,5 +1,12 @@
 <?php
 
+function confirmQuery($result){
+    if(!$result){
+        global $connection;
+        die(mysqli_error($connection));
+    }
+}
+
 function insert_categories(){
     if(isset($_POST['submit'])){
         $cat_title = $_POST['cat_title'];
@@ -50,21 +57,5 @@ function delete_categories(){
     }
 }
 
-function get_posts(){
-    global $connection;
-    $query = "SELECT * FROM posts";
-    $posts_admin = mysqli_query($connection, $query);
-    while($row = mysqli_fetch_assoc($select_categories_admin)){
-        $post_title = $row['post_title'];
-        $post_id = $row['post_id'];
-        $post_category_id = $row['post_category_id'];
-        $post_date = $row['post_date'];
-        $post_author = $row['post_author'];
-        $post_image = $row['post_image'];
-        $post_tags = $row['post_tags'];
-        $post_comment_count = $row['post_comment_count'];
-        $post_status = $row['post_status'];
-    }
-}
 
 ?>

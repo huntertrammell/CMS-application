@@ -22,15 +22,6 @@
                                 echo '';
                             }
                             switch($source){
-                                case '34';
-                                    echo "Nice 34";
-                                    break;
-                                case '100';
-                                    echo "Nice 100";
-                                    break;
-                                case '200';
-                                    echo "Nice 200";
-                                    break;
                                 case 'add_post';
                                     include "includes/add_post.php";
                                     break;
@@ -38,7 +29,7 @@
                                     include "includes/edit_post.php";
                                     break;
                                 default:
-                                    include "includes/view_all_posts.php";
+                                    include "includes/view_all_comments.php";
                                     break;
                             }
                         ?>
