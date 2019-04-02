@@ -9,7 +9,7 @@
             <th>Status</th>
             <th>Email</th>
             <th>Approve</th>
-            <th>Unnaprove</th>
+            <th>Unapprove</th>
             <th>Delete</th>
         </tr>
     </thead>
@@ -46,19 +46,35 @@
                     </td>
                     <td><?php echo $comment_status;?></td>
                     <td><?php echo $comment_email; ;?></td>
-                    <td><a href="#">Approve</a></td>
-                    <td><a href="#">Unnaprove</a></td>
-                    <td><a href="#">Delete</a></td>
+                    <td><a href="comments.php?approve=<?php echo $comment_id?>">Approve</a></td>
+                    <td><a href="comments.php?unapprove=<?php echo $comment_id?>">Unapprove</a></td>
+                    <td><a href="comments.php?delete=<?php echo $comment_id?>">Delete</a></td>
                 </tr>
                 <?php
             }
-            // if(isset($_GET['delete'])){
-            //     $target_post_id = $_GET['delete'];
-            //     $query =  "DELETE FROM posts WHERE post_id = {$target_post_id}";
-            //     $delete_query = mysqli_query($connection, $query);
-            //     header("Location: posts.php");
-            //     confirmQuery($delete_query);
-            // }
+            if(isset($_GET['delete'])){
+                $comment_id = $_GET['delete'];
+                $query =  "DELETE FROM comments WHERE comment_id = {$comment_id}";
+                $delete_query = mysqli_query($connection, $query);
+                header("Location: comments.php");
+                confirmQuery($delete_query);
+                $query = "UPDATE posts SET post_comment_count = post_comment_count - 1 WHERE post_id = $comment_post_id";
+                $decrement_comment_count = mysqli_query($connection, $query);
+            }
+            if(isset($_GET['approve'])){
+                $comment_id = $_GET['approve'];
+                $query =  "UPDATE comments SET comment_status = 'Approved' WHERE comment_id = {$comment_id}";
+                $approve_query = mysqli_query($connection, $query);
+                header("Location: comments.php");
+                confirmQuery($approve_query);
+            }
+            if(isset($_GET['unapprove'])){
+                $comment_id = $_GET['unapprove'];
+                $query =  "UPDATE comments SET comment_status = 'Unapproved' WHERE comment_id = {$comment_id}";
+                $unapprove_query = mysqli_query($connection, $query);
+                header("Location: comments.php");
+                confirmQuery($unapprove_query);
+            }
         ?>
     </tbody>
 </table>

@@ -1,5 +1,8 @@
 <?php 
-    $db['db_host'] = "localhost:8889";
+    //laptop
+    //$db['db_host'] = "localhost:8889";
+    //desktop
+    $db['db_host'] = "localhost:3307";
     $db['db_user'] = "root";
     $db['db_pass'] = "root";
     $db['db_name'] = "cms";

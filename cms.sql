@@ -2,8 +2,8 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Mar 29, 2019 at 06:26 PM
+-- Host: localhost:3307
+-- Generation Time: Apr 02, 2019 at 04:21 AM
 -- Server version: 5.7.24-log
 -- PHP Version: 7.2.10
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms`
 --
+CREATE DATABASE IF NOT EXISTS `cms` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `cms`;
 
 -- --------------------------------------------------------
 
@@ -33,15 +35,21 @@ CREATE TABLE `categories` (
   `cat_title` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `categories`
+-- Table structure for table `comments`
 --
 
-INSERT INTO `categories` (`cat_id`, `cat_title`) VALUES
-(1, 'PHP'),
-(2, 'Javascript'),
-(3, 'Wordpress'),
-(4, 'Vue');
+CREATE TABLE `comments` (
+  `comment_id` int(3) NOT NULL,
+  `comment_post_id` int(3) NOT NULL,
+  `comment_date` date NOT NULL,
+  `comment_author` varchar(255) NOT NULL,
+  `comment_status` varchar(255) NOT NULL DEFAULT 'Unapproved',
+  `comment_content` text NOT NULL,
+  `comment_email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -59,16 +67,25 @@ CREATE TABLE `posts` (
   `post_content` text NOT NULL,
   `post_tags` varchar(255) NOT NULL,
   `post_comment_count` int(11) NOT NULL,
-  `post_status` varchar(255) NOT NULL DEFAULT 'draft'
+  `post_status` varchar(255) NOT NULL DEFAULT 'Draft'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `posts`
+-- Table structure for table `users`
 --
 
-INSERT INTO `posts` (`post_id`, `post_category_id`, `post_title`, `post_author`, `post_date`, `post_image`, `post_content`, `post_tags`, `post_comment_count`, `post_status`) VALUES
-(1, 0, 'Hello_world', 'Hunter Trammell', '2019-03-28', 'Harrys-Hamburgers-1-400x133-900x300.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'hunter, javascript, php, test', 0, 'draft'),
-(2, 2, 'Java Script course post', 'Dingleberry Jerry', '2019-03-28', '', 'YOYOYOOYOYOYOYOYOOOOOOO It is your boy dingleberry jrery in the house', 'javascript, klingon', 0, 'draft');
+CREATE TABLE `users` (
+  `user_id` int(3) NOT NULL,
+  `user_username` varchar(255) NOT NULL,
+  `user_first_name` varchar(255) NOT NULL,
+  `user_last_name` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_image` text NOT NULL,
+  `user_role` varchar(255) NOT NULL,
+  `user_password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -81,10 +98,22 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`cat_id`);
 
 --
+-- Indexes for table `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`comment_id`);
+
+--
 -- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -97,10 +126,22 @@ ALTER TABLE `categories`
   MODIFY `cat_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `comment_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `post_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `user_id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

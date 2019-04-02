@@ -1,4 +1,9 @@
 <?php
+//can wrap this around any data going into the database, will generally prevent SQL injection
+function escape($string){
+    global $connection;
+    return mysqli_real_escape_string($connection, trim($string));
+}
 
 function confirmQuery($result){
     if(!$result){
